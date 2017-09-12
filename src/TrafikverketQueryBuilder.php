@@ -6,21 +6,24 @@ use Exception;
 class TrafikverketQueryBuilder {
 	protected $model = "";
 	protected $limit = 0;
+	protected $skip = 0;
+	protected $order_by = null;
+	protected $last_modified = null;
 	public $filters = [];
 
 	public $operators = [
-	"=" => "EQ",
-	"exists" => "EXISTS",
-	">" => "GT",
-	">=" => "GTE",
-	"<" => "LT",
-	"<=" => "LTE",
-	"!=" => "NE",
-	"like" => "LIKE",
-	"notlike" => "NOTLIKE",
-	"in" => "IN",
-	"notin" => "NOTIN",
-	"within" => "WITHIN"
+		"=" => "EQ",
+		"exists" => "EXISTS",
+		">" => "GT",
+		">=" => "GTE",
+		"<" => "LT",
+		"<=" => "LTE",
+		"!=" => "NE",
+		"like" => "LIKE",
+		"notlike" => "NOTLIKE",
+		"in" => "IN",
+		"notin" => "NOTIN",
+		"within" => "WITHIN"
 	];
 
 	function __construct($model) {
@@ -80,6 +83,21 @@ class TrafikverketQueryBuilder {
 		return $this;
 	}
 
+	public function skip($skip){
+		$this->skip = $skip;
+		return $this;
+	}
+
+	public function orderBy($order_by){
+		$this->order_by = $order_by;
+		return $this;
+	}
+
+	public function lastModified($timestamp){
+		$this->last_modified = date('Y-m-d\TH:i:s.00', $timestamp);
+		return $this;
+	}
+
 
 	public function toXml(){
 
@@ -94,8 +112,18 @@ class TrafikverketQueryBuilder {
 		$query = $dom->createElement("QUERY");
 		$query->setAttribute("objecttype", $this->model);
 		$query->setAttribute("limit", $this->limit);
+		$query->setAttribute("skip", $this->skip);
 
 		$filter = $dom->createElement("FILTER");
+		if($this->last_modified)
+		{
+			$query->setAttribute("lastmodified", "true");
+			$el = $dom->createElement("GT");
+			$el->setAttribute("name", "ModifiedTime");
+			$el->setAttribute("value", $this->last_modified);
+			$filter->appendChild($el);
+		}
+
 		$this->filtersToXml($dom, $this->filters, $filter);
 		$query->appendChild($filter);
 
@@ -154,11 +182,8 @@ class TrafikverketQueryBuilder {
 		$client = new Client();
 
 		$result = $client->post( config( "trafikverket.url"), ["body" => $this->toXml()]);
-		return \GuzzleHttp\json_decode($result->getBody()->getContents())->RESPONSE->RESULT[0]->{$this->model};
 
-
-
-
+		return json_decode($result->getBody()->getContents())->RESPONSE->RESULT[0]->{$this->model};
 	}
 
 
