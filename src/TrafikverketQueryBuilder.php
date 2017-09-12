@@ -182,8 +182,9 @@ class TrafikverketQueryBuilder {
 		$client = new Client();
 
 		$result = $client->post( config( "trafikverket.url"), ["body" => $this->toXml()]);
-
-		return json_decode($result->getBody()->getContents())->RESPONSE->RESULT[0]->{$this->model};
+		$json = json_decode($result->getBody()->getContents())->RESPONSE->RESULT[0];
+		if(property_exists($json,$this->model)) return $json->{$this->model};
+		return [];
 	}
 
 
