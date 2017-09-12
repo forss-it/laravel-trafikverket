@@ -89,7 +89,7 @@ class TrafikverketQueryBuilder {
 		$dom->loadXML('<REQUEST/>');
 
 		$login = $dom->createElement("LOGIN");
-		$login->setAttribute("authenticationkey", config("trafikverket.api_key"));
+		$login->setAttribute("authenticationkey", config("trafikverket.api_token"));
 
 		$query = $dom->createElement("QUERY");
 		$query->setAttribute("objecttype", $this->model);

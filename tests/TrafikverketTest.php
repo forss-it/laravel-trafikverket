@@ -7,7 +7,7 @@ class TrafikverketTest extends TestCase
 
 	public function setUp(){
 		Parent::setUp();
-		config(['trafikverket.api_key' => "7eed08f6ddac4016ba4e30d780e8619a"]);
+		config(['trafikverket.api_token' => "7eed08f6ddac4016ba4e30d780e8619a"]);
 		config(['trafikverket.url' => "http://api.trafikinfo.trafikverket.se/v1.2/data.json"]);
 	}
 
