@@ -8,7 +8,9 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 
 
-API wrapper for Trafikverket.
+API wrapper for Trafikverket API (https://api.trafikinfo.trafikverket.se/). 
+
+**This is still a work in progress!**
 
 
 ## Usage
@@ -21,11 +23,6 @@ Trafikverket::trainStations()->where('AdvertisedShortLocationName', 'Katrineholm
 ## Security
 
 If you discover any security related issues, please email markus.stromgren@dialect.se instead of using the issue tracker.
-
-## Credits
-
-- [:author_name][link-author]
-- [All Contributors][link-contributors]
 
 ## License
 
