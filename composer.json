@@ -1,10 +1,11 @@
 {
-    "name": "Dialect/Trafikverket",
+    "name": "dialect/trafikverket",
     "type": "library",
     "description": "API wrapper for Trafikverket",
     "keywords": [
-        "Dialect",
-        "Trafikverket"
+        "dialect",
+        "trafikverket",
+        "laravel"
     ],
     "homepage": "https://github.com/Dialect/Trafikverket",
     "license": "MIT",
