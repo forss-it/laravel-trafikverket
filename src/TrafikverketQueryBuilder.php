@@ -1,8 +1,11 @@
 <?php
 namespace Dialect\Trafikverket;
+
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Exception;
+use Carbon\Carbon;
+
 class TrafikverketQueryBuilder {
     protected $model = "";
     protected $limit = 0;
@@ -93,8 +96,13 @@ class TrafikverketQueryBuilder {
         return $this;
     }
 
-    public function lastModified($timestamp){
-        $this->last_modified = date('Y-m-d\TH:i:s.00', $timestamp);
+    public function lastModified($timestamp) {
+        if(!$timestamp instanceof Carbon) {
+            $timestamp = Carbon::createFromTimestamp($timestamp);
+        }
+
+        $this->last_modified = $timestamp->format('Y-m-d\TH:i:s.00');
+
         return $this;
     }
 
@@ -185,7 +193,9 @@ class TrafikverketQueryBuilder {
             "body" => $this->toXml(),
             'headers'  => ['content-type' => 'text/xml'],
         ]);
+
         $json = json_decode($result->getBody()->getContents())->RESPONSE->RESULT[0];
+
         if(property_exists($json,$this->model)) return $json->{$this->model};
         return [];
     }
