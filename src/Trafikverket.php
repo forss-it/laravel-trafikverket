@@ -1,5 +1,5 @@
 <?php
-namespace Dialect\Trafikverket;
+namespace KFVIT\LaravelTrafikverket;
 
 class Trafikverket {
 

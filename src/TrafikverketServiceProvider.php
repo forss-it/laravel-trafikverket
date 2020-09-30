@@ -1,6 +1,6 @@
 <?php
 
-namespace Dialect\Trafikverket;
+namespace KFVIT\LaravelTrafikverket;
 
 use Illuminate\Support\ServiceProvider;
 

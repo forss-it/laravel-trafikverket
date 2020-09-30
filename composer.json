@@ -1,5 +1,5 @@
 {
-    "name": "dialect/trafikverket",
+    "name": "kfvit/laravel-trafikverket",
     "type": "library",
     "description": "API wrapper for Trafikverket",
     "keywords": [
@@ -7,33 +7,34 @@
         "trafikverket",
         "laravel"
     ],
-    "homepage": "https://github.com/Dialect/Trafikverket",
+    "homepage": "https://github.com/kfvit/laravel-trafikverket",
     "license": "MIT",
     "authors": [
         {
-            "name": "Dialect Katrineholm",
-            "email": "markus.stromgren@dialect.se",
-            "homepage": "https://dialect.se",
+            "name": "KFV IT",
+            "email": "info@kfvit.se",
+            "homepage": "https://kfvit.se",
             "role": "Developer"
         }
     ],
     "require": {
-        "illuminate/support": "~5.1",
-        "php" : "~5.6|~7.0",
+        "illuminate/support": "~8.0",
+        "php" : "~7.4",
         "guzzlehttp/guzzle": "~6.0"
     },
     "require-dev": {
-        "phpunit/phpunit" : ">=5.4.3",
+        "orchestra/testbench": "^6.2",
+        "phpunit/phpunit": ">=5.4.3",
         "squizlabs/php_codesniffer": "^2.3"
     },
     "autoload": {
         "psr-4": {
-            "Dialect\\Trafikverket\\": "src"
+            "KFVIT\\LaravelTrafikverket\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Dialect\\Trafikverket\\": "tests"
+            "KFVIT\\LaravelTrafikverket\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -43,7 +44,15 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "1.0"
+        },
+        "laravel": {
+            "providers": [
+                "KFVIT\\LaravelTrafikverket\\TrafikverketServiceProvider"
+            ],
+            "aliases": {
+                "trafikverket": "KFVIT\\LaravelTrafikverket\\Trafikverket"
+            }
         }
     },
     "config": {
