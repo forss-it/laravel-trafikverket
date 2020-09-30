@@ -1,4 +1,7 @@
-<?php namespace Dialect\Unifaun;
+<?php
+
+namespace KFVIT\LaravelTrafikverket;
+
 class Facade extends \Illuminate\Support\Facades\Facade
 {
     /**
